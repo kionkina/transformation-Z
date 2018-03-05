@@ -6,7 +6,7 @@ def draw_lines( matrix, screen, color ):
     if len(matrix) < 2:
         print 'Need at least 2 points to draw'
         return
-    
+    print_matrix(matrix)
     point = 0
     while point < len(matrix) - 1:
         draw_line( matrix[point][0],

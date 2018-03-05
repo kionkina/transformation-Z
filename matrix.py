@@ -1,37 +1,52 @@
 import math
+from draw import *
 
 def make_translate( x, y, z ):
-    pass
-
-
-def make_scale_helper( x, y, z):
-    arr = [x,y,z]
-    ret = []
-    len_row = 4
-    len_col = 4
-    for r in range(len_row):
-        new_row = []
-        for c in range(len_col):
-            if (c<=2) and (c == r):
-                new_row.append(arr[c])
-            else:
-                new_row.append(0)
-        ret.append(new_row)
-    return ret
-
-
+    arr = new_matrix(4,4);
+    ident(arr);
+    arr[3][0] = x
+    arr[3][1] = y
+    arr[3][2] = z
+#    print_matrix(arr)
+    return arr
 
 def make_scale( x, y, z ):
-    pass
+    arr = new_matrix(4,4)
+    ident(arr)
+    arr[0][0] = x
+    arr[1][1] = y
+    arr[2][2] = z
+    return arr
 
-def make_rotX( theta ):    
-    pass
+
+def make_rotX( theta ):   
+    arr = new_matrix(4,4)
+    ident(arr)
+    arr[1][1] = math.cos(math.radians(float(theta)))
+    arr[1][2] = math.sin(math.radians(float(theta)))
+    arr[2][1] = -1*math.sin(math.radians(float(theta)))
+    arr[2][2] = math.cos(math.radians(float(theta)))
+    return arr
+
 
 def make_rotY( theta ):
-    pass
+    arr = new_matrix(4,4)
+    ident(arr)
+    arr[0][0] = math.cos(math.radians(float(theta)))
+    arr[2][0] = math.sin(math.radians(float(theta)))
+    arr[0][3] = -1*math.sin(math.radians(float(theta)))
+    arr[2][3] = math.cos(math.radians(float(theta)))
+    return arr
 
 def make_rotZ( theta ):
-    pass
+    arr = new_matrix(4,4)
+    ident(arr)
+    arr[0][0] = math.cos(math.radians(float(theta)))
+    arr[0][1] = math.sin(math.radians(float(theta)))
+    arr[1][0] = -1* math.sin(math.radians(float(theta)))
+    arr[1][1] = math.cos(math.radians(float(theta)))
+    return arr
+
 
 def print_matrix( matrix ):
     s = ''
@@ -42,8 +57,6 @@ def print_matrix( matrix ):
     print s
 
 
-print_matrix(make_scale_helper(10, 12, 14));
-
 def ident( matrix ):
     for r in range( len( matrix[0] ) ):
         for c in range( len(matrix) ):
@@ -52,9 +65,11 @@ def ident( matrix ):
             else:
                 matrix[c][r] = 0
 
-#m1 * m2 -> m2
 def matrix_mult( m1, m2 ):
-
+#    print "=======MULTIPLYING======="
+#    print_matrix(m1)
+#    print "=======BY============"
+#    print_matrix(m2)
     point = 0
     for row in m2:
         #get a copy of the next point
